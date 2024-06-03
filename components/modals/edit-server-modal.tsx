@@ -1,9 +1,10 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { MouseEventHandler, ReactEventHandler, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { useModal } from "@/hooks/use-modal-store";
+import { useForm } from "react-hook-form";
 
 import axios from "axios";
 
@@ -42,12 +43,13 @@ const formSchema = z.object({
   }),
 });
 
-export const CreateServerModal = () => {
-  const { isOpen, onClose, type } = useModal();
+export const EditServerModal = () => {
+  const { isOpen, onClose, type, data } = useModal();
 
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "createServer";
+  const isModalOpen = isOpen && type === "editServer";
+  const { server } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -57,23 +59,38 @@ export const CreateServerModal = () => {
     },
   });
 
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name);
+      form.setValue("imageUrl", server.imageUrl);
+    }
+  }, [server, form]);
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.patch(`/api/servers/${server?.id}`, values);
 
-      form.reset();
       router.refresh();
       onClose();
+      handleReset();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleReset = () => {
+    if (server) {
+      form.clearErrors();
+      form.setValue("name", server.name);
+      form.setValue("imageUrl", server.imageUrl);
+    }
+  };
+
   const handleClose = () => {
-    form.reset();
     onClose();
+    handleReset();
   };
 
   return (
@@ -90,7 +107,7 @@ export const CreateServerModal = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
-              <div className="flex items-center justify-center text-center">
+              <div className="flex items-center justify-center text-center pt-4">
                 <FormField
                   control={form.control}
                   name="imageUrl"
@@ -130,9 +147,21 @@ export const CreateServerModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
-                {isLoading ? <Loader2 className="animate-spin mx-1" /> : "Create"}
+            <DialogFooter className="bg-gray-100 px-6 py-4 gap-1">
+              <Button
+                variant="ghost"
+                type="button"
+                onClick={handleReset}
+                disabled={
+                  isLoading ||
+                  (server?.name === form.getValues("name") &&
+                    server?.imageUrl === form.getValues("imageUrl"))
+                }
+              >
+                Reset
+              </Button>
+              <Button variant="primary" type="submit" disabled={isLoading}>
+                {isLoading ? <Loader2 className="animate-spin mx-1" /> : "Save" }
               </Button>
             </DialogFooter>
           </form>
