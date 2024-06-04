@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEventHandler, ReactEventHandler, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useModal } from "@/hooks/use-modal-store";
@@ -51,6 +51,8 @@ export const EditServerModal = () => {
   const isModalOpen = isOpen && type === "editServer";
   const { server } = data;
 
+  const [isDisabled, setIsDisabled] = useState(true);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,6 +60,17 @@ export const EditServerModal = () => {
       imageUrl: "",
     },
   });
+
+  const watchName = form.watch("name");
+  const watchImageUrl = form.watch("imageUrl");
+
+  useEffect(() => {
+    if (form.getValues("name") === server?.name && form.getValues("imageUrl") === server.imageUrl) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [watchName, watchImageUrl, form, server?.name, server?.imageUrl]);
 
   useEffect(() => {
     if (server) {
@@ -74,7 +87,6 @@ export const EditServerModal = () => {
 
       router.refresh();
       onClose();
-      handleReset();
     } catch (error) {
       console.log(error);
     }
@@ -152,16 +164,18 @@ export const EditServerModal = () => {
                 variant="ghost"
                 type="button"
                 onClick={handleReset}
-                disabled={
-                  isLoading ||
-                  (server?.name === form.getValues("name") &&
-                    server?.imageUrl === form.getValues("imageUrl"))
-                }
+                className="transition"
+                disabled={isLoading || isDisabled}
               >
                 Reset
               </Button>
-              <Button variant="primary" type="submit" disabled={isLoading}>
-                {isLoading ? <Loader2 className="animate-spin mx-1" /> : "Save" }
+              <Button
+                variant="primary"
+                className="transition"
+                type="submit"
+                disabled={isLoading || isDisabled}
+              >
+                {isLoading ? <Loader2 className="animate-spin mx-1" /> : "Save"}
               </Button>
             </DialogFooter>
           </form>

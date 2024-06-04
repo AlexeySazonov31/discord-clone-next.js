@@ -1,3 +1,4 @@
+
 import { redirect } from "next/navigation";
 import { ChannelType, MemberRole } from "@prisma/client";
 
@@ -108,7 +109,7 @@ export const ServerSideBar = async ({ serverId }: ServerSidebarProps) => {
                 type: "member",
                 data: members?.map((member) => ({
                   id: member.id,
-                  name: member.profile.name,
+                  name: /null/.test(member.profile.name) ? member.profile.email : member.profile.name,
                   icon: roleIconMap[member.role],
                 })),
               },
