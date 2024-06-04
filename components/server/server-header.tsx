@@ -3,6 +3,7 @@
 import { useModal } from "@/hooks/use-modal-store";
 import { ServerWithMembersWithProfiles } from "@/types";
 import { MemberRole } from "@prisma/client";
+import { limitLengthFirstWord } from "@/lib/utils";
 
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react";
 
@@ -29,7 +30,7 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none group" asChild>
         <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
-          {server.name}
+          {limitLengthFirstWord(server.name, 20, true)}
           <ChevronDown className="h-5 w-5 ml-auto group-data-[state='open']:rotate-180 transition" />
         </button>
       </DropdownMenuTrigger>
