@@ -6,17 +6,13 @@ import { Badge } from "@/components/ui/badge";
 export const SocketIndicator = () => {
   const { isConnected } = useSocket();
 
-  if (!isConnected) {
-    return (
-      <Badge variant="outline" className="bg-yellow-600 text-white border-none">
-        Fallback: Polling every 1s
-      </Badge>
-    );
-  }
-
   return (
-    <Badge variant="outline" className="bg-emerald-600 text-white border-none">
-      Live: Real-time updates
+    <Badge
+      data-connected={isConnected}
+      variant="outline"
+      className="flex justify-center bg-yellow-600 data-[connected='true']:bg-emerald-600 text-white border-none ml-3 transition duration-700 w-[65px]"
+    >
+      {isConnected ? "Live" : "Syncing"}
     </Badge>
   );
 };

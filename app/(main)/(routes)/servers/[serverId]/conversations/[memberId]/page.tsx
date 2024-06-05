@@ -50,7 +50,11 @@ const ChannelIdPage = async ({ params }: MemberIdPageProps) => {
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
-        name={/null/.test(otherMember.profile.name) ? otherMember.profile.email : otherMember.profile.name}
+        name={
+          /null/.test(otherMember.profile.name)
+            ? otherMember.profile.email
+            : otherMember.profile.name
+        }
         serverId={params.serverId}
         type="conversation"
       />
