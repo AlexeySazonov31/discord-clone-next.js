@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ModalType, useModal } from "@/hooks/use-modal-store";
 
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
-import { ActionTooltip } from "@/components/action-tolltip";
+import { ActionTooltip } from "@/components/action-tooltip";
 
 import { cn, limitLengthFirstWord } from "@/lib/utils";
 

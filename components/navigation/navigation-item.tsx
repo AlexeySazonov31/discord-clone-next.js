@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import Image from "next/image";
 
-import { ActionTooltip } from "@/components/action-tolltip";
+import { ActionTooltip } from "@/components/action-tooltip";
 
 import { cn } from "@/lib/utils";
 

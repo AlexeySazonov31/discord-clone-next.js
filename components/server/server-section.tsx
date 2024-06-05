@@ -6,7 +6,7 @@ import { ServerWithMembersWithProfiles } from "@/types";
 import { useModal } from "@/hooks/use-modal-store";
 
 import { Plus, Settings } from "lucide-react";
-import { ActionTooltip } from "@/components/action-tolltip";
+import { ActionTooltip } from "@/components/action-tooltip";
 
 interface ServerSectionProps {
   label: string;
