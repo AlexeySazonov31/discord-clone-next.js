@@ -46,6 +46,18 @@ export async function POST(req: Request) {
                         type,
                     }
                 }
+            },
+            include: {
+                channels: {
+                    where: {
+                        profileId: profile.id,
+                        name,
+                        type,
+                    },
+                    orderBy: {
+                        createdAt: "desc",
+                    }
+                }
             }
         })
 

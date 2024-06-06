@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 
@@ -14,7 +14,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
   const profile = await currentProfile();
 
   if(!profile){
-    return auth().redirectToSignIn();
+    return <RedirectToSignIn />;
   }
 
   const server = await db.server.findUnique({
