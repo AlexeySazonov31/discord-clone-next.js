@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 export const currentProfilePages = async (req: NextApiRequest) => {
     const { userId } = getAuth(req);
 
-    if(!userId){
+    if (!userId) {
         return null;
     }
 

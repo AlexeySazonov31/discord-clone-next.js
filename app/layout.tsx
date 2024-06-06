@@ -1,13 +1,12 @@
+import type { Metadata, Viewport } from "next";
+
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { SocketProvider } from "@/components/providers/socket-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 
-import type { Metadata } from "next";
-
 import { cn } from "@/lib/utils";
-
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -20,6 +19,13 @@ export const metadata: Metadata = {
   keywords:
     "Discord Clone, communication platform, voice chat, community building, online chat, Aliaksei Sazonau",
   authors: [{ name: "Aliaksei Sazonau", url: "https://t.me/alexeusazonov" }],
+};
+
+export const viewport: Viewport = {
+  themeColor: "#313338",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -39,9 +45,7 @@ export default function RootLayout({
           >
             <SocketProvider>
               <ModalProvider />
-              <QueryProvider>
-                {children}
-              </QueryProvider>
+              <QueryProvider>{children}</QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>
