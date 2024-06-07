@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { LiveKitRoom, VideoConference, LocalUserChoices } from "@livekit/components-react";
 
@@ -27,17 +28,15 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
     } else {
       name = `${user.firstName} ${user.lastName}`;
     }
-
-    console.log(chatId);
-
+    name += ` - ID: ${uuidv4().slice(0, 4)}`; // * for identical names
 
     (async () => {
       try {
         const resp = await fetch(`/api/livekit?room=${chatId}&username=${name}`);
         const data = await resp.json();
         setToken(data.token);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [user?.firstName, user?.lastName, user?.emailAddresses, chatId]);
@@ -50,7 +49,6 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
       </div>
     );
   }
-
 
   return (
     <LiveKitRoom

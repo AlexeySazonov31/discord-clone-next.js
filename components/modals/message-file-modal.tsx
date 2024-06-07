@@ -94,6 +94,7 @@ export const MessageFileModal = () => {
                           endPoint="messageFile"
                           value={field.value}
                           onChange={field.onChange}
+                          type="message"
                         />
                       </FormControl>
                       <FormMessage />

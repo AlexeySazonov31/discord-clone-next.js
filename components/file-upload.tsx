@@ -2,6 +2,7 @@
 
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 import { UploadDropzone } from "@/lib/uploadthing";
 
@@ -11,18 +12,25 @@ interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
   endPoint: "messageFile" | "serverImage";
+  type?: "icon" | "message";
 }
 
-export const FileUpload = ({ onChange, value, endPoint }: FileUploadProps) => {
+export const FileUpload = ({ onChange, value, endPoint, type = "icon" }: FileUploadProps) => {
   const fileType = value?.split(".").pop();
-
   if (value && fileType !== "pdf") {
     return (
-      <div className="relative h-20 w-20">
-        <Image src={value} fill alt="Upload" className="rounded-full object-cover" />
+      <div className={cn("relative", type === "message" ? "w-64 h-64" : "h-20 w-20")}>
+        <Image
+          data-type={type}
+          src={value}
+          alt="Upload"
+          className="rounded-full object-cover data-[type='message']:rounded-sm"
+          fill
+        />
         <button
+          data-type={type}
           onClick={() => onChange("")}
-          className="bg-rose-700 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
+          className="bg-rose-700 text-white p-1 rounded-full absolute top-0 data-[type='message']:-top-2 right-0 data-[type='message']:-right-2 shadow-sm"
           type="button"
         >
           <X className="h-3 w-3" />
@@ -31,11 +39,16 @@ export const FileUpload = ({ onChange, value, endPoint }: FileUploadProps) => {
     );
   }
 
-  if(value && fileType === "pdf"){
+  if (value && fileType === "pdf") {
     return (
       <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
         <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
-        <a href={value} target="_blank" rel="noopener noreferrer" className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline">
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+        >
           {value}
         </a>
         <button
@@ -46,7 +59,7 @@ export const FileUpload = ({ onChange, value, endPoint }: FileUploadProps) => {
           <X className="h-3 w-3" />
         </button>
       </div>
-    )
+    );
   }
   return (
     <UploadDropzone
