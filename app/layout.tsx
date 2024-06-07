@@ -1,5 +1,3 @@
-import { Analytics } from "@vercel/analytics/react";
-
 import type { Metadata, Viewport } from "next";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -36,7 +34,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
       <ClerkProvider>
         <html lang="en" suppressHydrationWarning>
           <head>
@@ -62,7 +59,5 @@ export default function RootLayout({
           </body>
         </html>
       </ClerkProvider>
-      <Analytics />
-    </>
   );
 }

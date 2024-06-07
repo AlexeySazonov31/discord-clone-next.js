@@ -1,3 +1,30 @@
+# Discord Clone APP
+
+[Result](https://discord-clone-nextjs-f58bdcb53805.herokuapp.com/)
+
+[Invitation to an existing test server](https://discord-clone-nextjs-f58bdcb53805.herokuapp.com/invite/9e9c9955-9b88-471c-9977-95725700d1c6)<br/>
+<u>it can be used immediately after authorization</u>
+
+
+### Technology stack:
+
+* Next.js
+* TypeScript
+* React
+* React Query
+* Socket.io
+* Tailwind
+* Shadcn/ui
+* ORM - Prisma
+* MySQL
+* Uploadthing
+* Clerk
+* LiveKit
+
+
+---
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
