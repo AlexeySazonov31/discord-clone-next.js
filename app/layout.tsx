@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/react";
+
 import type { Metadata, Viewport } from "next";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -34,22 +36,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            storageKey="discord-theme"
-          >
-            <SocketProvider>
-              <ModalProvider />
-              <QueryProvider>{children}</QueryProvider>
-            </SocketProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <>
+      <ClerkProvider>
+        <html lang="en" suppressHydrationWarning>
+          <head>
+            <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+            <link rel="manifest" href="/site.webmanifest" />
+            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5b76d5" />
+            <meta name="msapplication-TileColor" content="#2b5797" />
+          </head>
+          <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              storageKey="discord-theme"
+            >
+              <SocketProvider>
+                <ModalProvider />
+                <QueryProvider>{children}</QueryProvider>
+              </SocketProvider>
+            </ThemeProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+      <Analytics />
+    </>
   );
 }
