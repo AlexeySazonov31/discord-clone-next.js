@@ -2,14 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-import {
-  LiveKitRoom,
-  VideoConference,
-} from '@livekit/components-react';
+import { LiveKitRoom, VideoConference, LocalUserChoices } from "@livekit/components-react";
 
 import "@livekit/components-styles";
 
-import { Channel } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
 
@@ -25,12 +21,14 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
 
   useEffect(() => {
     let name = "";
-    if (!user?.firstName || !user?.lastName){
-      if ( !user?.emailAddresses[0]?.emailAddress ) return;
+    if (!user?.firstName || !user?.lastName) {
+      if (!user?.emailAddresses[0]?.emailAddress) return;
       name = user.emailAddresses[0].emailAddress;
     } else {
       name = `${user.firstName} ${user.lastName}`;
     }
+
+    console.log(chatId);
 
 
     (async () => {
@@ -52,6 +50,7 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
       </div>
     );
   }
+
 
   return (
     <LiveKitRoom
