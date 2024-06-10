@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { SocketProvider } from "@/components/providers/socket-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
-import { ClerkProvider } from "@clerk/nextjs";
+import { AuthProvider } from "@/components/providers/auth-provider";
 
 import { cn } from "@/lib/utils";
 import { Open_Sans } from "next/font/google";
@@ -34,30 +34,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <ClerkProvider>
-        <html lang="en" suppressHydrationWarning>
-          <head>
-            <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
-            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-            <link rel="manifest" href="/site.webmanifest" />
-            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5b76d5" />
-            <meta name="msapplication-TileColor" content="#2b5797" />
-          </head>
-          <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              storageKey="discord-theme"
-            >
-              <SocketProvider>
-                <ModalProvider />
-                <QueryProvider>{children}</QueryProvider>
-              </SocketProvider>
-            </ThemeProvider>
-          </body>
-        </html>
-      </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5b76d5" />
+        <meta name="msapplication-TileColor" content="#2b5797" />
+      </head>
+      <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          storageKey="discord-theme"
+        >
+          <AuthProvider>
+            <SocketProvider>
+              <ModalProvider />
+              <QueryProvider>{children}</QueryProvider>
+            </SocketProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

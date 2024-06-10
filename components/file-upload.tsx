@@ -70,6 +70,13 @@ export const FileUpload = ({ onChange, value, endPoint, type = "icon" }: FileUpl
       onUploadError={(error: Error) => {
         console.log(error);
       }}
+      appearance={{
+        label: "text-indigo-500 hover:text-indigo-500/70 transition",
+        button:
+          "bg-indigo-500 text-white hover:bg-indigo-500/90 cursor-pointer text-sm select-none rounded-md font-medium",
+        uploadIcon: "fill-zinc-500",
+        allowedContent: "text-zinc-500",
+      }}
     />
   );
 };
