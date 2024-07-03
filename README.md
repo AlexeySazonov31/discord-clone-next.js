@@ -15,7 +15,7 @@
 - Tailwind
 - Shadcn/ui
 - ORM - Prisma
-- MySQL
+- Postgresql
 - Uploadthing
 - Clerk
 - LiveKit
