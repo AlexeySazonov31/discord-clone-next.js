@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: disclone-nextjs-db
+    image: postgres:15-alpine
+    ports:
+      - 5432:5432
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+  app:
+    networks:
+      - app-network
+    container_name: disclone-nextjs
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - /app/.next
+      - .:/app
+
+volumes:
+  pgdata: {}
+
+networks:
+  app-network:
