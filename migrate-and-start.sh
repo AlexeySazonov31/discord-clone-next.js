@@ -1,4 +1,5 @@
 #!/bin/sh
-yarn run prisma generate
-yarn run prisma db push
-yarn dev
+npx prisma generate
+npx prisma db push
+npx next build
+npx next start

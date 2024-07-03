@@ -16,8 +16,7 @@ const nextConfig = {
             bufferutil: "commonjs bufferutil",
         });
         return config;
-    },
-    output: "standalone"
+    }
 };
 
 export default nextConfig;
