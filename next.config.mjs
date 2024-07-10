@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
     images: {
         remotePatterns: [
@@ -16,7 +17,8 @@ const nextConfig = {
             bufferutil: "commonjs bufferutil",
         });
         return config;
-    }
+    },
+    output: "standalone",
 };
 
 export default nextConfig;

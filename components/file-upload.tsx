@@ -64,11 +64,12 @@ export const FileUpload = ({ onChange, value, endPoint, type = "icon" }: FileUpl
   return (
     <UploadDropzone
       endpoint={endPoint}
-      onClientUploadComplete={(res) => {
-        onChange(res?.[0].url);
+      onClientUploadComplete={(url: any) => {
+        console.log(url);
+        onChange(url?.[0].url);
       }}
-      onUploadError={(error: Error) => {
-        console.log(error);
+      onUploadError={(error) => {
+        console.log(error?.message);
       }}
       appearance={{
         label: "text-indigo-500 hover:text-indigo-500/70 transition",
