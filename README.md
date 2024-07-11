@@ -1,8 +1,8 @@
 # Discord Clone APP
 
-[Result](https://www.disclone.sasdev.space/)
+[Result](https://disclone.sasdev.space/)
 
-[Invitation to an existing test server](https://www.disclone.sasdev.space/invite/9e9c9955-9b88-471c-9977-95725700d1c6)<br/>
+[Invitation to an existing test server](https://disclone.sasdev.space/invite/5899b1d2-15f9-4f39-91f3-b7fc28bfb9d0)<br/>
 <u>it can be used immediately after authorization</u>
 
 ### Technology stack:

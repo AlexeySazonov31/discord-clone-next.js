@@ -3,5 +3,8 @@ import { ourFileRouter } from "./core";
 
 export const { GET, POST } = createRouteHandler({
   router: ourFileRouter,
-  config: {},
+  config: {
+    callbackUrl: "https://disclone.sasdev.space/",
+    isDev: false,
+  },
 });
